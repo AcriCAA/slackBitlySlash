@@ -1,31 +1,35 @@
 <?php
 
-
-
-
 $command = $_POST['command'];
 $incomingDomain = $_POST['text'];
 $token = $_POST['token'];
 
 
-define ("API_PATH", "https://api-ssl.bitly.com/");
+
+
+define ("API_PATH", "https://api-ssl.bitly.com");
 define ("SHORTEN_METHOD", "/v3/shorten?access_token=");
 define("ACCESS_TOKEN", "a64957afec71b812f6980a754690586fb116f925");
 define("LONG_URL_REQUEST","&longUrl=");
 define("TEXT_FORMAT", "&format=txt");
+define("SLACK_TOKEN", "KhqAtgl5GmMQNE9w7A9VtBPq");
 
 
 #
 # replace this token with the token from your slash command configuration page
 #
 
-if($token != 'lf3SMJlyBkOm4ARuIrHDNwyC'){ 
+if($token != SLACK_TOKEN){ 
 	$msg = "The token for the slash command doesn't match. Check your script.";
 	die($msg);
 	echo $msg;
 }
 
 else {
+
+
+// API Address: https://api-ssl.bitly.com
+// GET /v3/shorten?access_token=ACCESS_TOKEN&longUrl=http%3A%2F%2Fgoogle.com%2F
 
 //$domain = urlencode($incomingDomain);
 $domain = checkURL($incomingDomain);
@@ -35,15 +39,18 @@ $domain = checkURL($incomingDomain);
 if ($domain == FALSE){
 
 
-	$domain = "http://".$incomingDomain;
-	$domain = checkURL($domain);	
+			$domain = "http://".$incomingDomain;
+			$domain = checkURL($domain);
+
+			
 }
 
 if ($domain == FALSE) {
 
-	$reply = "The request to bitly was invalid. Check url formatting";
+			$reply = "Could not complete request. The domain format is invalid.";
 	
-}
+			}	
+
 
 else {
 
@@ -108,7 +115,7 @@ echo $reply;
 
 function checkURL ($domain) {
 
-$var = filter_var ($domain, FILTER_VALIDATE_URL);
+$var = filter_var($domain, FILTER_VALIDATE_URL);
 
  if($var == FALSE){
 
