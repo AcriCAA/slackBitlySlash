@@ -6,13 +6,7 @@ $token = $_POST['token'];
 
 
 
-
-define ("API_PATH", "https://api-ssl.bitly.com");
-define ("SHORTEN_METHOD", "/v3/shorten?access_token=");
-define("ACCESS_TOKEN", "a64957afec71b812f6980a754690586fb116f925");
-define("LONG_URL_REQUEST","&longUrl=");
-define("TEXT_FORMAT", "&format=txt");
-define("SLACK_TOKEN", "KhqAtgl5GmMQNE9w7A9VtBPq");
+require_once("/auth.php");
 
 
 #
